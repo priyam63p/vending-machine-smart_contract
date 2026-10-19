@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 contract VendingMachine{
     uint soda;
     address payable public owner;
+    mapping (address=>uint) public sodaPurchased;
 
     constructor(){
         soda=100;
@@ -12,6 +13,7 @@ contract VendingMachine{
     function buy() public  payable {
         require(msg.value==1 ether,"You should have 1 ether");
         require(soda>0,"Out of stock");
+        sodaPurchased[msg.sender]++;
         soda=soda-1;
     }
 
